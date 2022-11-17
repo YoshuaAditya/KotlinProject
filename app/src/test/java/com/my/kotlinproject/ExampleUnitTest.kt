@@ -1,17 +1,52 @@
 package com.my.kotlinproject
 
+import android.provider.ContactsContract.CommonDataKinds.Email
+import android.widget.TextView
+import org.junit.Assert
+import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.mockito.*
+import org.mockito.ArgumentMatchers.any
+import org.mockito.junit.MockitoJUnitRunner
 
-import org.junit.Assert.*
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
-class ExampleUnitTest {
+@RunWith(MockitoJUnitRunner::class)
+class PresenterTest {
+
+    @Mock
+    lateinit var model: Contract.Model
+
+    @Mock
+    lateinit var view: Contract.View
+
+    lateinit var presenter: Presenter
+
+    @Captor
+    var captor: ArgumentCaptor<String> = ArgumentCaptor.forClass(null)
+
+
+    @Before
+    fun setUp() {
+        MockitoAnnotations.openMocks(this)
+
+        presenter = Presenter(view, model)
+    }
+
     @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+    fun `test getNextCourse`() {
+        // given
+        Mockito.`when`(model.getNextCourse(any())).then {
+            view.setString("test")
+        }
+
+        // when
+        presenter.onButtonClick()
+
+        // then
+        Mockito.verify(view).setString(captor.capture())
+        val test=captor.value
+        Assert.assertEquals("test",test)
+//        Assert.assertEquals("tes",test)
     }
 }
