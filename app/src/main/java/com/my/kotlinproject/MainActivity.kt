@@ -22,6 +22,11 @@ class MainActivity : AppCompatActivity(), Contract.View {
         databinding=DataBindingUtil.setContentView(this,R.layout.activity_main)
         presenter = Presenter(this, Model())
         databinding.presenter=presenter
+        databinding.buttonRetrofit.setOnClickListener(View.OnClickListener {
+            databinding.presenter!!.onRetrofitClick(this@MainActivity)
+        })
+
+
     }
 
     override fun onResume() {

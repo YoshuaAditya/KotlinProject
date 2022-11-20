@@ -13,4 +13,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "KotlinProject"
-include ':app'
+include ':app',':retrofit'

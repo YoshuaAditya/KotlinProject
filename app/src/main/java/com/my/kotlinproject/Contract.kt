@@ -1,5 +1,7 @@
 package com.my.kotlinproject
 
+import android.content.Context
+
 interface Contract {
     interface View {
         // method to display progress bar
@@ -33,6 +35,8 @@ interface Contract {
         // method to be called when
         // the button is clicked
         fun onButtonClick()
+        // the button is clicked
+        fun onRetrofitClick(context: Context)
 
         // method to destroy
         // lifecycle of MainActivity
